@@ -7,7 +7,7 @@ int main()
 
     // TEXTURE 1
     sf::Texture texture1;
-    if (!texture1.loadFromFile("image.png")) {
+    if (!texture1.loadFromFile("imageMiao.png")) {
         std::cerr << "Errore nel caricamento di image1.png\n";
         return 1;
     }
