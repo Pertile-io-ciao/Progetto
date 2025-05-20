@@ -1,3 +1,4 @@
+#include <vector>
 struct pixel
 {
     double r;
@@ -6,3 +7,4 @@ struct pixel
 };
 
 int bianconero (pixel p);
+ std::vector<pixel> immagineInVettore(pixel** matrice, int height, int width);
