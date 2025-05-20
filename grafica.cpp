@@ -11,7 +11,10 @@ int main()
         std::cerr << "Errore nel caricamento di image1.png\n";
         return 1;
     }
+
+    texture1.setSmooth(true);
     sf::Sprite sprite1(texture1);
+    float side = std::min(texture1.getSize().x, texture1.getSize().y);
     sprite1.setPosition(0, 0); // posizione personalizzabile
 
     // TEXTURE 2
