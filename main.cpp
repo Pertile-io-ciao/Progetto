@@ -1,3 +1,6 @@
 #include <iostream>
-
-int main() { int n; }  // sono ema :)
+#include "dati.hpp"
+#include "grafica.hpp"
+int main() {
+    
+ }  
