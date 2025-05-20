@@ -1,24 +1,41 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-int main () {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Window");
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(1800, 1800), "Due Immagini con SFML");
 
-    // Crea un cerchio di raggio 50 e lo colora di rosso
-    sf::CircleShape circle(50);
-    circle.setFillColor(sf::Color::Red);
-    circle.setPosition(375, 275); // Posizione centrata nella finestra
+    // TEXTURE 1
+    sf::Texture texture1;
+    if (!texture1.loadFromFile("image.png")) {
+        std::cerr << "Errore nel caricamento di image1.png\n";
+        return 1;
+    }
+    sf::Sprite sprite1(texture1);
+    sprite1.setPosition(0, 0); // posizione personalizzabile
 
-    while (window.isOpen()) {
+    // TEXTURE 2
+    sf::Texture texture2;
+    if (!texture2.loadFromFile("image2.png")) {
+        std::cerr << "Errore nel caricamento di image2.png\n";
+        return 1;
+    }
+    sf::Sprite sprite2(texture2);
+    sprite2.setPosition(1000, 0); // posizione spostata a destra
+
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        window.clear(); // Pulisce la finestra
-        window.draw(circle); // Disegna il cerchio
-        window.display(); // Mostra la finestra aggiornata
+        window.clear(sf::Color::Black);
+        window.draw(sprite1);
+        window.draw(sprite2);
+        window.display();
     }
 
     return 0;
