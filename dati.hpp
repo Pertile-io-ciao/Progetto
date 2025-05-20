@@ -6,5 +6,8 @@ struct pixel
     double b;
 };
 
+std::vector<sf::Color> immagineVettore(const sf::Image& image, int height, int width);
 int bianconero (pixel p);
- std::vector<pixel> immagineInVettore(pixel** matrice, int height, int width);
+std::vector<int> vettore1 (const std::vector<sf::Color>& v);
+
+sf::Image interpolazioneBilineare(const sf::Image& src, unsigned int newWidth, unsigned int newHeight);
