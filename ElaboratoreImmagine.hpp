@@ -5,11 +5,10 @@
 #include  <SFML/Graphics.hpp>
 
 class ElaboratoreImmagine {
-protected:
+public:
     std::string sourceFolder;
     std::string destinationFolder;
 
-public:
     ElaboratoreImmagine(std::string source, std::string destination);
     void elabora();
     
@@ -17,6 +16,27 @@ public:
      * Metodo specifico di trasformazione
      */
     virtual sf::Image trasforma(const sf::Image& input) = 0; 
+};
+
+class ImmagineResized : public ElaboratoreImmagine {
+public:
+
+ImmagineResized(std::string source, std::string destination);
+    sf::Image trasforma(const sf::Image& input) override;
+};
+
+// Bianco e nero
+class ImmagineBW : public ElaboratoreImmagine {
+public:
+    ImmagineBW(std::string source, std::string destination);
+    sf::Image trasforma(const sf::Image& input) override;
+};
+
+// Zoom
+class ImmagineZoomed : public ElaboratoreImmagine {
+public:
+    ImmagineZoomed(std::string source, std::string destination);
+    sf::Image trasforma(const sf::Image& input) override;
 };
 
 #endif
