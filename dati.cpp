@@ -1,6 +1,8 @@
 #include "dati.hpp"
 #include <cmath>
-#include  <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
+#include <vector>
+
 
 
 

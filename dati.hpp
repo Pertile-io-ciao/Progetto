@@ -1,4 +1,6 @@
+#include <SFML/Graphics.hpp>
 #include <vector>
+
 struct pixel
 {
     double r;
