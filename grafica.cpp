@@ -4,7 +4,7 @@
 #include <iostream>
 #include "grafica.hpp"
 
-int disegna()
+void disegna()
 { 
 sf::RenderWindow window(sf::VideoMode(1500, 1300), "Rete neurale di Hopfield");
 sf::Texture texture;
