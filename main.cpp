@@ -2,5 +2,5 @@
 #include "dati.hpp"
 #include "grafica.hpp"
 int main ()  {
-    disegna()
-};
+    disegna();
+}
