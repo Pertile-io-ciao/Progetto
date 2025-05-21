@@ -16,7 +16,7 @@ std::vector<sf::Color> immagineVettore(const sf::Image& image, int height, int w
     return risultato;
 }   //mi trovo un vettore composto da tutti sf::Color che sono praticamente i pixel
 
-int bianconero (const sf::Color& p){
+int bianconero (const sf::Color& p) {
     double norma= std::sqrt(p.r * p.r + p.g * p.g + p.b *p.b );
     if (norma<127){
         return -1;
