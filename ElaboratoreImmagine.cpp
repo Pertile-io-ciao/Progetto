@@ -45,6 +45,28 @@ void ElaboratoreImmagine::elabora() {
     }
 }
 
+ImmagineResized::ImmagineResized(std::string source, std::string destination)
+    : ElaboratoreImmagine(source, destination) {}
+
+sf::Image ImmagineResized::trasforma(const sf::Image& input) {
+    return input;
+}
+
+ImmagineBW::ImmagineBW(std::string source, std::string destination)
+    : ElaboratoreImmagine(source, destination) {}
+
+sf::Image ImmagineBW::trasforma(const sf::Image& input) {
+    return input;
+}
+
+ImmagineZoomed::ImmagineZoomed(std::string source, std::string destination)
+    : ElaboratoreImmagine(source, destination) {}
+
+sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {
+    return input;
+}
+
+ 
 int main() {
     return 0;
 }
