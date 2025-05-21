@@ -3,4 +3,4 @@
 
 #include <iostream>
 
-void disegna ();
+int disegna ();
