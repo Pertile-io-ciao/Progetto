@@ -1,42 +1,43 @@
 #ifndef ELABORATOREIMMAGINE_HPP
 #define ELABORATOREIMMAGINE_HPP
 
+#include <SFML/Graphics.hpp>
 #include <string>
-#include  <SFML/Graphics.hpp>
+#include <vector>
 
 class ElaboratoreImmagine {
-public:
-    std::string sourceFolder;
-    std::string destinationFolder;
+ public:
+  std::string sourceFolder;
+  std::string destinationFolder;
 
-    ElaboratoreImmagine(std::string source, std::string destination);
-    void elabora();
-    
-    /**
-     * Metodo specifico di trasformazione
-     */
-    virtual sf::Image trasforma(const sf::Image& input) = 0; 
+  ElaboratoreImmagine(std::string source, std::string destination);
+  void elabora();
+
+  /**
+   * Metodo specifico di trasformazione virtuale
+   */
+  virtual sf::Image trasforma(const sf::Image& input) = 0;
 };
 
+// classe per il ridimensionamento dell'immagine
 class ImmagineResized : public ElaboratoreImmagine {
-public:
-
-ImmagineResized(std::string source, std::string destination);
-    sf::Image trasforma(const sf::Image& input) override;
+ public:
+  ImmagineResized(std::string source, std::string destination);
+  sf::Image trasforma(const sf::Image& input) override;
 };
 
-// Bianco e nero
+// classe per il Bianco e nero
 class ImmagineBW : public ElaboratoreImmagine {
-public:
-    ImmagineBW(std::string source, std::string destination);
-    sf::Image trasforma(const sf::Image& input) override;
+ public:
+  ImmagineBW(std::string source, std::string destination);
+  sf::Image trasforma(const sf::Image& input) override;
 };
 
-// Zoom
+// classe per lo Zoom dell'immagine
 class ImmagineZoomed : public ElaboratoreImmagine {
-public:
-    ImmagineZoomed(std::string source, std::string destination);
-    sf::Image trasforma(const sf::Image& input) override;
+ public:
+  ImmagineZoomed(std::string source, std::string destination);
+  sf::Image trasforma(const sf::Image& input) override;
 };
 
 #endif
