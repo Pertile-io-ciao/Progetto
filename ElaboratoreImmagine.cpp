@@ -1,9 +1,7 @@
 #include "ElaboratoreImmagine.hpp"
-
 #include <filesystem>
 #include <iostream>
 #include <string>
-
 #include "dati.hpp"
 
 // costruttore di ElaboratoreImmagine
@@ -52,24 +50,28 @@ void ElaboratoreImmagine::elabora() {
 ImmagineResized::ImmagineResized(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
 
-sf::Image ImmagineResized::trasforma(const sf::Image& input) { int inW = input.getSize().x;
-    int inH = input.getSize().y;
-    int outL = 128; // Ad esempio, nuovo lato di 128 pixel
+sf::Image ImmagineResized::trasforma(const sf::Image& input) { 
 
-    // Usando la funzione di interpolazione bilineare
-    std::vector<int> result = interpolazioneBilineare(vettore1(immagineVettore(input, inH, inW)), inW, inH, outL);
+    sf::Image resizedImage;
+    resizedImage.create(64, 64);
 
-    sf::Image outputImage;
-    outputImage.create(outL, outL);
+    // Ridimensiona l'immagine utilizzando un sf::RenderTexture per l'interpolazione automatica
+    sf::RenderTexture renderTexture;
+    renderTexture.create(64, 64);  // La dimensione finale desiderata
+    
+    // Crea uno sprite per visualizzare l'immagine di origine
+    sf::Sprite sprite;
+    sprite.setTexture(input);
 
-    // Ricostruzione dell'immagine da output (qui potresti volere migliorare la conversione)
-    for (int y = 0; y < outL; ++y) {
-        for (int x = 0; x < outL; ++x) {
-            outputImage.setPixel(x, y, result[y * outL + x] == 1 ? sf::Color::White : sf::Color::Black);
-        }
-    }
+    // Renderizza l'immagine di origine sulla renderTexture che automaticamente applicherà il ridimensionamento
+    renderTexture.clear();
+    renderTexture.draw(sprite);
+    renderTexture.display();
 
-    return outputImage; }
+    // Copia il contenuto della renderTexture nella nuova immagine (64x64)
+    resizedImage = renderTexture.getTexture().copyToImage();
+
+    return resizedImage; }
 
 ImmagineBW::ImmagineBW(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
