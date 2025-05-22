@@ -1,6 +1,9 @@
 #include "dati.hpp"
 #include <cmath>
-#include  <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <string>
+int l= 64;
 
 
 
@@ -33,15 +36,14 @@ std::vector<int> vettore1 (const std::vector<sf::Color>& v){
 }   //vettore composto solo da -1 e 1
 
 std::vector<int> interpolazioneBilineare(
-    const std::vector<int>& input, int inW, int inH,
-    int outL)
+    const std::vector<int>& input, int inW, int inH)
 {
-    std::vector<int> output(outL * outL); //nuovo vettore
+    std::vector<int> output(l * l); //nuovo vettore
 
-    for (int y = 0; y < outL; ++y) {
-        for (int x = 0; x < outL; ++x) {
-            float gx = (x + 0.5f) * (float)inW / outL - 0.5f; //gx, gy: coordinate "virtuali" continue nella vecchia immagine.
-            float gy = (y + 0.5f) * (float)inH / outL - 0.5f; //Spostiamo di 0.5 per centrare i pixel (effetto anti-aliasing).
+    for (int y = 0; y < l; ++y) {
+        for (int x = 0; x < l; ++x) {
+            float gx = (x + 0.5f) * (float)inW / l - 0.5f; //gx, gy: coordinate "virtuali" continue nella vecchia immagine.
+            float gy = (y + 0.5f) * (float)inH / l - 0.5f; //Spostiamo di 0.5 per centrare i pixel (effetto anti-aliasing).
 
             int x0 = std::clamp((int)gx, 0, inW - 2);
             int y0 = std::clamp((int)gy, 0, inH - 2);
@@ -63,9 +65,24 @@ std::vector<int> interpolazioneBilineare(
             float bottom = v01 + dx * (v11 - v01);
             float value = top + dy * (bottom - top);
 
-            output[y * outL + x] = (value < 0.5f) ? -1 : 1;
+            output[y * l + x] = (value < 0.5f) ? -1 : 1;
         }
     }
 
     return output;
+}
+
+sf::Image vettoreInImmagine(const std::vector<int>& dati) {
+    sf::Image image;
+    image.create(l, l);
+
+    for (int y = 0; y < l; ++y) {
+        for (int x = 0; x < l; ++x) {
+            int valore = dati[y * l + x];
+            sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
+            image.setPixel(x, y, colore);
+        }
+    }
+
+    return image;
 }

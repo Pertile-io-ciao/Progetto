@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <vector>
+
 #include <iostream>
 
-int main ();
+int disegna (sf::Texture& texture, sf::Texture& textureBW);
