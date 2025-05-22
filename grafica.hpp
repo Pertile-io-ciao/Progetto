@@ -3,4 +3,4 @@
 
 #include <iostream>
 
-int disegna ();
+int disegna (sf::Texture& texture, sf::Texture& textureBW);
