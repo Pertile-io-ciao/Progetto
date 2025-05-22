@@ -18,10 +18,12 @@ int main() {
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
 
     // Applica interpolazione per ottenere vettore di dimensione l x l
-    auto v_interpolato = interpolazioneBilineare(vettore, width, height);
+    std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height, 100);
+
+    std::vector<int> zoom( v_interpolato , 100, 10); 
 
     // Converti il vettore in immagine (bianco e nero)
-    sf::Image imagebw = vettoreInImmagine(v_interpolato);
+    sf::Image imagebw = vettoreInImmagine(zoom);
 
     // Crea le texture da disegnare
     sf::Texture texture, texturebw;
