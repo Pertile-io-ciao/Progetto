@@ -8,7 +8,7 @@ struct pixel
     double b;
 };
 
-std::vector<sf::Color> immagineVettore(const sf::Image& image, int height, int width);
+std::vector<sf::Color> immagineVettore(const sf::Image& image);
 std::vector<int> bianconero (const std::vector<sf::Color>& v);
 std::vector<int> interpolazioneBilineare(const std::vector<int>& input, int inW, int inH);
 sf::Image vettoreInImmagine(const std::vector<int>& dati);

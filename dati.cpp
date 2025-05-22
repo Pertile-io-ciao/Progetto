@@ -3,36 +3,50 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <iostream>
 int l= 64;
 
 
 
-std::vector<sf::Color> immagineVettore(const sf::Image& image, int height, int width) {
-    std::vector<sf::Color> risultato;
+std::vector<sf::Color> immagineVettore(const sf::Image& image) {
+    int width = image.getSize().x;
+    int height = image.getSize().y;
+
+   std::vector<sf::Color> risultato;
+    risultato.reserve(width * height);
 
     for (int y = 0; y < height; ++y) {         
         for (int x = 0; x < width; ++x) {      
-            risultato.push_back(image.getPixel(x,y));
+            risultato.push_back(image.getPixel(x, y));
         }
     }
 
     return risultato;
-}   //mi trovo un vettore composto da tutti sf::Color che sono praticamente i pixel
+}
+ //mi trovo un vettore composto da tutti sf::Color che sono praticamente i pixel
 
 
-std::vector<int> bianconero (const std::vector<sf::Color>& v){
+std::vector<int> bianconero(const std::vector<sf::Color>& v) {
     std::vector<int> risultato;
+
     for (std::size_t i = 0; i < v.size(); ++i) {
-        int h = 1;
-        double norma= std::sqrt(v[i].r * v[i].r + v[i].g * v[i].g + v[i].b *v[i].b );
-            if (norma<127){
-            h= -1;
-            }
-        h= 1;
+        const sf::Color& c = v[i];
+
+        // Ignora completamente i pixel trasparenti (opzionale)
+        if (c.a < 10) {
+            risultato.push_back(-1);  // considera come bianco
+            continue;
+        }
+
+        // Calcola la luminanza percepita
+        double luminanza = (0.299 * c.r + 0.587 * c.g + 0.114 * c.b);
+        int h = (luminanza < 127) ? -1 : 1;
         risultato.push_back(h);
     }
+
     return risultato;
-}   //vettore composto solo da -1 e 1
+}
+
 
 std::vector<int> interpolazioneBilineare(
     const std::vector<int>& input, int inW, int inH)
