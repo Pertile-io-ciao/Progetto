@@ -19,18 +19,17 @@ std::vector<sf::Color> immagineVettore(const sf::Image& image, int height, int w
     return risultato;
 }   //mi trovo un vettore composto da tutti sf::Color che sono praticamente i pixel
 
-int bianconero (const sf::Color& p) {
-    double norma= std::sqrt(p.r * p.r + p.g * p.g + p.b *p.b );
-    if (norma<127){
-        return -1;
-    }
-    return 1;
-} //questo fa solo 1 pixel
 
-std::vector<int> vettore1 (const std::vector<sf::Color>& v){
+std::vector<int> bianconero (const std::vector<sf::Color>& v){
     std::vector<int> risultato;
     for (std::size_t i = 0; i < v.size(); ++i) {
-        risultato.push_back(bianconero(v[i]));
+        int h = 1;
+        double norma= std::sqrt(v[i].r * v[i].r + v[i].g * v[i].g + v[i].b *v[i].b );
+            if (norma<127){
+            h= -1;
+            }
+        h= 1;
+        risultato.push_back(h);
     }
     return risultato;
 }   //vettore composto solo da -1 e 1

@@ -22,11 +22,7 @@ int main ()  {
     int width = image.getSize().x;
 
     std::vector<sf::Color> colori = immagineVettore(image, 64, 64);
-    std::vector<int> vettore= vettore1(colori);
-    std::cout << "Vettore di interi:\n";
-    for (std::size_t i = 0; i < 14; ++i) {
-    std::cout << "Elemento " << i << ": " << vettore[i] << "\n";
-    }
+    std::vector<int> vettore= bianconero(colori);
     auto v=interpolazioneBilineare(vettore, width, height);
     sf::Image imagebw = vettoreInImmagine(v);
     sf::Texture texturebw;
