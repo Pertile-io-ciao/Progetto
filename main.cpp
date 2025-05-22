@@ -4,36 +4,34 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-
-int main ()  {
-
+int main() {
     sf::Image image;
     if (!image.loadFromFile("imageKitty.png")) {
         std::cerr << "Errore nel caricamento dell'immagine.\n";
         return -1;
     }
-    sf::Texture texture;
-    if (!texture.loadFromFile("imageKitty.png")) {
-        std::cerr << "Errore nel caricamento di imageMiao.png\n";
-        return -1;
-    }
 
-    int height = image.getSize().y;
     int width = image.getSize().x;
+    int height = image.getSize().y;
 
-    std::vector<sf::Color> colori = immagineVettore(image, 64, 64);
-    std::vector<int> vettore= vettore1(colori);
-    std::cout << "Vettore di interi:\n";
-    for (std::size_t i = 0; i < 14; ++i) {
-    std::cout << "Elemento " << i << ": " << vettore[i] << "\n";
-    }
-    auto v=interpolazioneBilineare(vettore, width, height);
-    sf::Image imagebw = vettoreInImmagine(v);
-    sf::Texture texturebw;
+    std::vector<sf::Color> colori = immagineVettore(image);  // vettore di sf::Color
+    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+
+    // Applica interpolazione per ottenere vettore di dimensione l x l
+    auto v_interpolato = interpolazioneBilineare(vettore, width, height);
+
+    // Converti il vettore in immagine (bianco e nero)
+    sf::Image imagebw = vettoreInImmagine(v_interpolato);
+
+    // Crea le texture da disegnare
+    sf::Texture texture, texturebw;
+    texture.loadFromImage(image); // originale
     if (!texturebw.loadFromImage(imagebw)) {
-        std::cerr << "Errore nel caricamento di imageMiao.png\n";
+        std::cerr << "Errore nel caricamento della texture bianco/nero.\n";
         return -1;
     }
-    
-    disegna(texture, texturebw);
+
+    // Mostra entrambe le texture in sequenza
+    disegna(texture, texturebw); // Assicurati che questa funzione esista
+    return 0;
 }
