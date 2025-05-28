@@ -20,18 +20,10 @@ int main() {
     // Applica interpolazione per ottenere vettore di dimensione l x l
     std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height, 100);
 
-    //std::vector<int> zoom( v_interpolato , 100, 10); 
+    std::vector<int> zoomato= zoom ( v_interpolato , 100, 10); 
 
     // Converti il vettore in immagine (bianco e nero)
-sf::Image imagebw;
-imagebw.create(100, 100);
-for (int y = 0; y < 100; ++y) {
-    for (int x = 0; x < 100; ++x) {
-        int valore = v_interpolato[y * 100 + x];
-        sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
-        imagebw.setPixel(x, y, colore);
-    }
-}
+sf::Image imagebw= vettoreInImmagine(zoomato);
 
     // Crea le texture da disegnare
     sf::Texture texture, texturebw;

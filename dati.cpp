@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 int l= 100;
-
+int n= 10;
 
 
 std::vector<sf::Color> immagineVettore(const sf::Image& image) {
@@ -88,37 +88,38 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
 
     return output;
 }
-/*
-std::vector<int> zoom (std::vector<int> v, int l, int n){
-    std::vector<int> zoom (l*l*n*n);
-    std::vector<int> provvisorio (n);
-    while (!v.empty()) {
-    for (int x=0; x<l; ++x) {
-        provvisorio.push_back(v[x]);   
-    }    
-    for (int x=0; x<l; ++x) {
-        v.erase(v.begin() + x);
-    }
-    for (int i=0; i<n; ++i){
-        for (int j=0; j<l; ++j){
-            for (int z=0; z<n; ++z){
-                zoom.push_back(provvisorio[j]);
-            }
-        }
-    }
-    provvisorio.clear();
-    }
-    return;
-}
 
-*/
-sf::Image vettoreInImmagine(const std::vector<int>& dati) {
-    sf::Image image;
-    image.create(l, l);
+std::vector<int> zoom(const std::vector<int>& v, int l, int n) {
+    int newL = l * n;
+    std::vector<int> result(newL * newL);
 
     for (int y = 0; y < l; ++y) {
         for (int x = 0; x < l; ++x) {
-            int valore = dati[y * l + x];
+            int valore = v[y * l + x];
+
+            // Scrivi valore in blocco n x n
+            for (int dy = 0; dy < n; ++dy) {
+                for (int dx = 0; dx < n; ++dx) {
+                    int newX = x * n + dx;
+                    int newY = y * n + dy;
+                    result[newY * newL + newX] = valore;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+
+
+sf::Image vettoreInImmagine(const std::vector<int>& dati) {
+    sf::Image image;
+    image.create(l*n, l*n);
+
+    for (int y = 0; y < l*n; ++y) {
+        for (int x = 0; x < l*n; ++x) {
+            int valore = dati[y * l*n + x];
             sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
             image.setPixel(x, y, colore);
         }
