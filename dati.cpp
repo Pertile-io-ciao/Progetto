@@ -88,7 +88,7 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
 
     return output;
 }
-
+/*
 std::vector<int> zoom (std::vector<int> v, int l, int n){
     std::vector<int> zoom (l*l*n*n);
     std::vector<int> provvisorio (n);
@@ -107,11 +107,11 @@ std::vector<int> zoom (std::vector<int> v, int l, int n){
         }
     }
     provvisorio.clear();
+    }
+    return;
 }
 
-}
-
-
+*/
 sf::Image vettoreInImmagine(const std::vector<int>& dati) {
     sf::Image image;
     image.create(l, l);
@@ -126,3 +126,22 @@ sf::Image vettoreInImmagine(const std::vector<int>& dati) {
 
     return image;
 }
+/*
+sf::Image vettoreInImmagine(const std::vector<int>& dati, const sf::Image& image) {
+    int width = image.getSize().x;
+    int height = image.getSize().y;
+
+    sf::Image imagebw;
+    imagebw.create(width, height);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int valore = dati[y * width + x];
+            sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
+            imagebw.setPixel(x, y, colore);
+        }
+    }
+
+    return imagebw;
+}
+*/
