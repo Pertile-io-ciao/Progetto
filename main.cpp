@@ -2,6 +2,7 @@
 #include "dati.hpp"
 #include "grafica.hpp"
 #include "apprendimento.hpp"
+#include "richiamo.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -120,6 +121,12 @@ sf::Image image3;
     //std::vector<std::vector<int>> memoria= {v_interpolato, v_interpolato1,v_interpolato2};
     //std::vector<std::vector<int>> matricePesi = hebb(memoria);
 
+    std::vector<int> distorta = tagliaorizzontale(v_interpolato2, 64, 47, 61);
+    std::vector<int> distorta2 = rumore(distorta, 0.2);
+    std::vector<int> zoomdistorta= zoom(distorta2);
+    sf::Image immdistorta= vettoreInImmagine(zoomdistorta);
+    sf::Texture texdistorta;
+    texdistorta.loadFromImage(immdistorta);
     // Mostra entrambe le texture in sequenza
-    disegna(texturebw, texturebw1, texturebw2, texturebw3); // Assicurati che questa funzione esista
+    disegna(texturebw, texturebw1, texturebw2, texturebw3, texdistorta); // Assicurati che questa funzione esista
 }

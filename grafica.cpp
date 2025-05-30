@@ -1,18 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "grafica.hpp"
-int disegna(sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4) {
+int disegna(sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4, sf::Texture& distorta) {
     sf::RenderWindow window(sf::VideoMode(1900, 800), "Rete neurale di Hopfield");
 
     sf::Sprite sprite1(texture1);
     sf::Sprite sprite2(texture2);
     sf::Sprite sprite3(texture3);
     sf::Sprite sprite4(texture4);
+    sf::Sprite sprited(distorta);
+
 
     sprite1.setPosition(0.f, 0.f);
     sprite2.setPosition(500.f, 0.f);
     sprite3.setPosition(1000.f, 0.f);
     sprite4.setPosition(1500.f, 0.f);
+    sprited.setPosition(500.f, 400.f);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -27,6 +30,7 @@ int disegna(sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3,
         window.draw(sprite2);
         window.draw(sprite3);
         window.draw(sprite4);
+        window.draw(sprited);
 
         window.display();
     }
