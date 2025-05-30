@@ -1,51 +1,32 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "grafica.hpp"
+int disegna(sf::Texture& texture1, sf::Texture& texture2, sf::Texture& texture3, sf::Texture& texture4) {
+    sf::RenderWindow window(sf::VideoMode(1900, 800), "Rete neurale di Hopfield");
 
-int disegna(sf::Texture& textureOriginale, sf::Texture& textureBN) 
-{
-    sf::RenderWindow window(sf::VideoMode(1500, 1300), "Rete neurale di Hopfield");
-    window.setVerticalSyncEnabled(false);
-    window.setFramerateLimit(60);
+    sf::Sprite sprite1(texture1);
+    sf::Sprite sprite2(texture2);
+    sf::Sprite sprite3(texture3);
+    sf::Sprite sprite4(texture4);
 
-    // Attiva l'anti-aliasing solo se vuoi immagini morbide (opzionale)
-    textureOriginale.setSmooth(true);
-    textureBN.setSmooth(true);
-
-    // Crea due sprite distinti per le due texture
-    sf::Sprite spriteOriginale(textureOriginale);
-    sf::Sprite spriteBN(textureBN);
-    spriteOriginale.setPosition(0, 0);
-    spriteBN.setPosition(0, 0);
-
-    sf::Clock clock;
-    bool cambioAvvenuto = false;
+    sprite1.setPosition(0.f, 0.f);
+    sprite2.setPosition(500.f, 0.f);
+    sprite3.setPosition(1000.f, 0.f);
+    sprite4.setPosition(1500.f, 0.f);
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            // Chiudi con la X della finestra
             if (event.type == sf::Event::Closed)
                 window.close();
-
-            // Chiudi anche con ESC
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-                window.close();
         }
 
-        // Dopo 3 secondi cambia immagine
-        if (!cambioAvvenuto && clock.getElapsedTime().asSeconds() >= 3.0f) {
-            cambioAvvenuto = true;
-            std::cout << "Texture cambiata dopo 3 secondi!\n";
-        }
+        window.clear(sf::Color::Black);
 
-        window.clear();
-
-        // Mostra l'immagine giusta
-        if (!cambioAvvenuto)
-            window.draw(spriteOriginale);
-        else
-            window.draw(spriteBN);
+        window.draw(sprite1);
+        window.draw(sprite2);
+        window.draw(sprite3);
+        window.draw(sprite4);
 
         window.display();
     }

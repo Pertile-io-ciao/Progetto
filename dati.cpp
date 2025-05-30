@@ -4,10 +4,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
-int l= 100;
-int n= 10;
-
-
+int l= 64;
+int n= 5;
 std::vector<sf::Color> immagineVettore(const sf::Image& image) {
     int width = image.getSize().x;
     int height = image.getSize().y;
@@ -47,15 +45,15 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
     return risultato;
 }
  std::vector<int> interpolazioneBilineare(
-    const std::vector<int>& input, int inW, int inH, int out)
+    const std::vector<int>& input, int inW, int inH)
 {
-    std::vector<int> output(out * out);
+    std::vector<int> output(l * l);
 
-    for (int y = 0; y < out; ++y) {
-        for (int x = 0; x < out; ++x) {
+    for (int y = 0; y < l; ++y) {
+        for (int x = 0; x < l; ++x) {
             // Mappatura continua dei pixel: niente -0.5, niente (out - 1)
-            float gx = ((x + 0.5f) * inW) / out - 0.5f;
-            float gy = ((y + 0.5f) * inH) / out - 0.5f;
+            float gx = ((x + 0.5f) * inW) / l - 0.5f;
+            float gy = ((y + 0.5f) * inH) / l - 0.5f;
 
             // Clamp per evitare fuori-bordo
             int x0 = std::clamp((int)gx, 0, inW - 2);
@@ -82,14 +80,14 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
                 v01 * (1 - dx) * dy +
                 v11 * dx * dy;
 
-            output[y * out + x] = (value < 0.5f) ? -1 : 1;
+            output[y * l + x] = (value < 0.5f) ? -1 : 1;
         }
     }
 
     return output;
 }
 
-std::vector<int> zoom(const std::vector<int>& v, int l, int n) {
+std::vector<int> zoom(const std::vector<int>& v) {
     int newL = l * n;
     std::vector<int> result(newL * newL);
 
