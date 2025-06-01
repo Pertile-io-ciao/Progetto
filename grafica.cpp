@@ -15,4 +15,3 @@ sf::Sprite sprite1(texture);
 sprite1.setPosition(0, 0);
 
 }
-
