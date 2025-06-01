@@ -4,8 +4,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
+//lato immagine 
 int l= 64;
-int n= 5;
+
+//zoom viene passato come parametro
+//int n= 5;
+
 std::vector<sf::Color> immagineVettore(const sf::Image& image) {
     int width = image.getSize().x;
     int height = image.getSize().y;
@@ -87,7 +91,7 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
     return output;
 }
 
-std::vector<int> zoom(const std::vector<int>& v) {
+std::vector<int> zoom(const std::vector<int>& v, int n) {
     int newL = l * n;
     std::vector<int> result(newL * newL);
 
@@ -110,14 +114,15 @@ std::vector<int> zoom(const std::vector<int>& v) {
 }
 
 
-
+//in input ho vettore di pixel bn di immagine quadrata quindi il lato è radice di size
 sf::Image vettoreInImmagine(const std::vector<int>& dati) {
     sf::Image image;
-    image.create(l*n, l*n);
+    int lato = (int)sqrt(dati.size());
+    image.create(lato, lato);
 
-    for (int y = 0; y < l*n; ++y) {
-        for (int x = 0; x < l*n; ++x) {
-            int valore = dati[y * l*n + x];
+    for (int y = 0; y < lato; ++y) {
+        for (int x = 0; x < lato; ++x) {
+            int valore = dati[y * lato + x];
             sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
             image.setPixel(x, y, colore);
         }

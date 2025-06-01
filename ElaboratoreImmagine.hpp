@@ -27,9 +27,9 @@ class ImmagineResized : public ElaboratoreImmagine {
 };
 
 // classe per il Bianco e nero
-class ImmagineBW : public ElaboratoreImmagine {
+class ImmagineBN : public ElaboratoreImmagine {
  public:
-  ImmagineBW(std::string source, std::string destination);
+  ImmagineBN(std::string source, std::string destination);
   sf::Image trasforma(const sf::Image& input) override;
 };
 

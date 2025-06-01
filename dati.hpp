@@ -12,4 +12,4 @@ std::vector<sf::Color> immagineVettore(const sf::Image& image);
 std::vector<int> bianconero (const std::vector<sf::Color>& v);
 std::vector<int> interpolazioneBilineare(const std::vector<int>& input, int inW, int inH);
 sf::Image vettoreInImmagine(const std::vector<int>& dati);
-std::vector<int> zoom(const std::vector<int>& v);
+std::vector<int> zoom(const std::vector<int>& v, int n);

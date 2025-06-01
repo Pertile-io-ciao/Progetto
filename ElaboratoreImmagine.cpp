@@ -52,74 +52,38 @@ ImmagineResized::ImmagineResized(std::string source, std::string destination)
 
 sf::Image ImmagineResized::trasforma(const sf::Image& input) { 
 
-    sf::Image resizedImage;
-    resizedImage.create(64, 64);
-
-    // Ridimensiona l'immagine utilizzando un sf::RenderTexture per l'interpolazione automatica
-    sf::RenderTexture renderTexture;
-    renderTexture.create(64, 64);  // La dimensione finale desiderata
+    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
+    std::vector<int> vettore = bianconero(colori);      
     
-    // Crea uno sprite per visualizzare l'immagine di origine
-    sf::Sprite sprite;
-    sprite.setTexture(input);
+    int width = input.getSize().x;
+    int height = input.getSize().y;      // -1 / 1
+    std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height);
+    sf::Image image= vettoreInImmagine(vettore);
+    return image;
+}
 
-    // Renderizza l'immagine di origine sulla renderTexture che automaticamente applicherà il ridimensionamento
-    renderTexture.clear();
-    renderTexture.draw(sprite);
-    renderTexture.display();
-
-    // Copia il contenuto della renderTexture nella nuova immagine (64x64)
-    resizedImage = renderTexture.getTexture().copyToImage();
-
-    return resizedImage; }
-
-ImmagineBW::ImmagineBW(std::string source, std::string destination)
+ImmagineBN::ImmagineBN(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
 
-sf::Image ImmagineBW::trasforma(const sf::Image& input) { int inW = input.getSize().x;
-    int inH = input.getSize().y;
-
-    // Creazione di un vettore dei pixel in bianco e nero
-    std::vector<int> result = vettore1(immagineVettore(input, inH, inW));
-
-    sf::Image outputImage;
-    outputImage.create(inW, inH);
-
-    // Ricostruzione dell'immagine da output (bianco e nero)
-    for (int y = 0; y < inH; ++y) {
-        for (int x = 0; x < inW; ++x) {
-            outputImage.setPixel(x, y, result[y * inW + x] == 1 ? sf::Color::White : sf::Color::Black);
-        }
-    }
-
-    return outputImage; }
+sf::Image ImmagineBN::trasforma(const sf::Image& input) { int inW = input.getSize().x;
+    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
+    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+    sf::Image imagebw1= vettoreInImmagine(vettore);
+    return imagebw1;
+}
 
 ImmagineZoomed::ImmagineZoomed(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
 
-sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {  int inW = input.getSize().x;
-    int inH = input.getSize().y;
+sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {  
+    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
+    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+    std::vector<int> vettore2 = zoom(vettore, 5);            // -1 / 1
+    sf::Image image= vettoreInImmagine(vettore);
+    return image;
+}
 
-    // Fattore di zoom (ad esempio 4x)
-    int zoomFactor = 4;
-    int outW = inW * zoomFactor;
-    int outH = inH * zoomFactor;
-
-    sf::Image outputImage;
-    outputImage.create(outW, outH);
-
-    // Ridimensionamento dei pixel (copiamo i pixel e li ingrandiamo)
-    for (int y = 0; y < inH; ++y) {
-        for (int x = 0; x < inW; ++x) {
-            sf::Color pixelColor = input.getPixel(x, y);
-            for (int dy = 0; dy < zoomFactor; ++dy) {
-                for (int dx = 0; dx < zoomFactor; ++dx) {
-                    outputImage.setPixel(x * zoomFactor + dx, y * zoomFactor + dy, pixelColor);
-                }
-            }
-        }
-    }
-
-    return outputImage; }
-
-int main() { return 0; }
+int main() {
+    ImmagineResized interp("source", "resized");
+    interp.elabora();
+ }

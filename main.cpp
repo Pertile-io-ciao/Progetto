@@ -15,16 +15,21 @@ int main() {
         return -1;
     }
 
-    int width = image.getSize().x;
-    int height = image.getSize().y;
-
+    
     std::vector<sf::Color> colori = immagineVettore(image);  // vettore di sf::Color
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
 
+    sf::Image imagebw1= vettoreInImmagine(vettore);
+
+    
+    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+
+    int width = image.getSize().x;
+    int height = image.getSize().y;
     // Applica interpolazione per ottenere vettore di dimensione l x l
     std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height);
 
-    std::vector<int> zoomato= zoom ( v_interpolato); 
+    std::vector<int> zoomato= zoom ( v_interpolato, 5); 
 
     sf::Image imagebw= vettoreInImmagine(zoomato);
 
