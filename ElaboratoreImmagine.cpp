@@ -85,6 +85,11 @@ sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {
     return image;
 }
 
+sf::Image ImmagineNoised::trasforma(const sf::Image& input) {  
+    
+    return image;
+}
+
 int main() {
     /*ImmagineResized interp("images/source", "images/resized");
     interp.elabora()*/
