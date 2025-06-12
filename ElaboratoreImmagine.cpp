@@ -62,15 +62,17 @@ sf::Image ImmagineResized::trasforma(const sf::Image& input) {
     return image;
 }
 
-ImmagineBN::ImmagineBN(std::string source, std::string destination)
+/*ImmagineBN::ImmagineBN(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
 
-sf::Image ImmagineBN::trasforma(const sf::Image& input) { int inW = input.getSize().x;
+sf::Image ImmagineBN::trasforma(const sf::Image& input) { 
+  int inW = input.getSize().x; 
+  int inH = input.getSize().y;
     std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
     sf::Image imagebw1= vettoreInImmagine(vettore);
     return imagebw1;
-}
+}*/
 
 ImmagineZoomed::ImmagineZoomed(std::string source, std::string destination)
     : ElaboratoreImmagine(source, destination) {}
@@ -84,7 +86,6 @@ sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {
 }
 
 int main() {
-    ImmagineResized interp("images/source", "images/resized");
-   // ImmagineBN elab("images/source", "images/bw");
-    interp.elabora();
+    ImmagineZoomed zoomma("images/resized", "images/zoomed");
+    zoomma.elabora();
  }
