@@ -58,7 +58,7 @@ sf::Image ImmagineResized::trasforma(const sf::Image& input) {
     int width = input.getSize().x;
     int height = input.getSize().y;      // -1 / 1
     std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height);
-    sf::Image image= vettoreInImmagine(v_interpolato, input);
+    sf::Image image = vettoreInImmagine(v_interpolato);
     return image;
 }
 
