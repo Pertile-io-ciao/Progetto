@@ -30,7 +30,8 @@ find_package(SFML 2.5 REQUIRED COMPONENTS graphics window system)
 # Aggiungi i tuoi file sorgente all'eseguibile
 add_executable(Progetto
     ElaboratoreImmagine.cpp
-    #main.cpp               # <-- Aggiungi anche altri file se ne hai
+    dati.cpp
+               # <-- Aggiungi anche altri file se ne hai
 )
 
 # Collega SFML al tuo eseguibile
