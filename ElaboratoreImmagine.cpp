@@ -58,7 +58,7 @@ sf::Image ImmagineResized::trasforma(const sf::Image& input) {
     int width = input.getSize().x;
     int height = input.getSize().y;      // -1 / 1
     std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height);
-    sf::Image image= vettoreInImmagine(vettore);
+    sf::Image image= vettoreInImmagine(v_interpolato, input);
     return image;
 }
 
@@ -79,11 +79,12 @@ sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {
     std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
     std::vector<int> vettore2 = zoom(vettore, 5);            // -1 / 1
-    sf::Image image= vettoreInImmagine(vettore);
+    sf::Image image= vettoreInImmagine(vettore2);
     return image;
 }
 
 int main() {
-    ImmagineResized interp("source", "resized");
+    ImmagineResized interp("images/source", "images/resized");
+   // ImmagineBN elab("images/source", "images/bw");
     interp.elabora();
  }

@@ -48,7 +48,49 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
 
     return risultato;
 }
- std::vector<int> interpolazioneBilineare(
+std::vector<int> interpolazioneBilineare(const std::vector<int>& input, int inW, int inH) {
+    std::vector<int> output(l * l);
+
+    for (int y = 0; y < l; ++y) {
+        for (int x = 0; x < l; ++x) {
+            float gx = ((x + 0.5f) * inW) / l - 0.5f;
+            float gy = ((y + 0.5f) * inH) / l - 0.5f;
+
+            int x0 = std::floor(gx);
+            int y0 = std::floor(gy);
+            int x1 = std::min(x0 + 1, inW - 1);
+            int y1 = std::min(y0 + 1, inH - 1);
+
+            x0 = std::clamp(x0, 0, inW - 1);
+            y0 = std::clamp(y0, 0, inH - 1);
+
+            float dx = gx - x0;
+            float dy = gy - y0;
+
+            auto at = [&](int x, int y) -> float {
+                return (input[y * inW + x] > 0) ? 1.0f : 0.0f;
+            };
+
+            float v00 = at(x0, y0);
+            float v10 = at(x1, y0);
+            float v01 = at(x0, y1);
+            float v11 = at(x1, y1);
+
+            float value = v00 * (1 - dx) * (1 - dy)
+                        + v10 * dx * (1 - dy)
+                        + v01 * (1 - dx) * dy
+                        + v11 * dx * dy;
+
+            output[y * l + x] = (value < 0.5f) ? -1 : 1;
+        }
+    }
+
+    return output;
+}
+
+
+
+ /*std::vector<int> interpolazioneBilineare(
     const std::vector<int>& input, int inW, int inH)
 {
     std::vector<int> output(l * l);
@@ -89,7 +131,7 @@ std::vector<int> bianconero(const std::vector<sf::Color>& v) {
     }
 
     return output;
-}
+}*/
 
 std::vector<int> zoom(const std::vector<int>& v, int n) {
     int newL = l * n;
@@ -130,7 +172,7 @@ sf::Image vettoreInImmagine(const std::vector<int>& dati) {
 
     return image;
 }
-/*
+
 sf::Image vettoreInImmagine(const std::vector<int>& dati, const sf::Image& image) {
     int width = image.getSize().x;
     int height = image.getSize().y;
@@ -148,4 +190,3 @@ sf::Image vettoreInImmagine(const std::vector<int>& dati, const sf::Image& image
 
     return imagebw;
 }
-*/

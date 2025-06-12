@@ -16,13 +16,12 @@ int main() {
     }
 
     
-    std::vector<sf::Color> colori = immagineVettore(image);  // vettore di sf::Color
+    std::vector<sf::Color> colori = immagineVettore(image);
+  // vettore di sf::Color
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
 
     sf::Image imagebw1= vettoreInImmagine(vettore);
-
-    
-    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+            // -1 / 1
 
     int width = image.getSize().x;
     int height = image.getSize().y;
@@ -56,8 +55,8 @@ int main() {
     // Applica interpolazione per ottenere vettore di dimensione l x l
     std::vector<int> v_interpolato1 = interpolazioneBilineare(vettore1, width1, height1);
 
-    std::vector<int> zoomato1= zoom ( v_interpolato1); 
-    sf::Image imagebw1= vettoreInImmagine(zoomato1);
+    std::vector<int> zoomato1= zoom ( v_interpolato1, 5); 
+    sf::Image imagebw1_zoom= vettoreInImmagine(zoomato1);
 
     // Crea le texture da disegnare
     sf::Texture texture1, texturebw1;
@@ -82,7 +81,7 @@ sf::Image image2;
     // Applica interpolazione per ottenere vettore di dimensione l x l
     std::vector<int> v_interpolato2 = interpolazioneBilineare(vettore2, width2, height2);
 
-    std::vector<int> zoomato2= zoom ( v_interpolato2); 
+    std::vector<int> zoomato2= zoom ( v_interpolato2, 5); 
 
     sf::Image imagebw2= vettoreInImmagine(zoomato2);
 
@@ -109,7 +108,7 @@ sf::Image image3;
     // Applica interpolazione per ottenere vettore di dimensione l x l
     std::vector<int> v_interpolato3 = interpolazioneBilineare(vettore3, width3, height3);
 
-    std::vector<int> zoomato3= zoom ( v_interpolato3); 
+    std::vector<int> zoomato3= zoom ( v_interpolato3, 5); 
 
     sf::Image imagebw3= vettoreInImmagine(zoomato3);
 
@@ -128,7 +127,7 @@ sf::Image image3;
 
     std::vector<int> distorta = tagliaorizzontale(v_interpolato2, 64, 47, 61);
     std::vector<int> distorta2 = rumore(distorta, 0.2);
-    std::vector<int> zoomdistorta= zoom(distorta2);
+    std::vector<int> zoomdistorta= zoom(distorta2, 5);
     sf::Image immdistorta= vettoreInImmagine(zoomdistorta);
     sf::Texture texdistorta;
     texdistorta.loadFromImage(immdistorta);
