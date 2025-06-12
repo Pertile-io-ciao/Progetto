@@ -86,6 +86,8 @@ sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {
 }
 
 int main() {
+    /*ImmagineResized interp("images/source", "images/resized");
+    interp.elabora()*/
     ImmagineZoomed zoomma("images/resized", "images/zoomed");
     zoomma.elabora();
  }
