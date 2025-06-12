@@ -80,15 +80,22 @@ ImmagineZoomed::ImmagineZoomed(std::string source, std::string destination)
 sf::Image ImmagineZoomed::trasforma(const sf::Image& input) {  
     std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
     std::vector<int> vettore = bianconero(colori);            // -1 / 1
-    std::vector<int> vettore2 = zoom(vettore, 5);            // -1 / 1
+    std::vector<int> vettore2 = zoom(vettore, 4);            // -1 / 1
     sf::Image image= vettoreInImmagine(vettore2);
     return image;
 }
 
+/*ImmagineNoised::ImmagineNoised(std::string source, std::string destination)
+    : ElaboratoreImmagine(source, destination) {}
+
 sf::Image ImmagineNoised::trasforma(const sf::Image& input) {  
-    
+    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
+    std::vector<int> vettore = bianconero(colori);            // -1 / 1
+    std::vector<int> vettore2 = zoom(vettore, 5);            // -1 / 1
+    sf::Image image= vettoreInImmagine(vettore2);
     return image;
-}
+}*/
+
 
 int main() {
     /*ImmagineResized interp("images/source", "images/resized");
