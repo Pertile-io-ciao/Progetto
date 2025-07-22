@@ -27,11 +27,11 @@ class ImmagineResized : public ElaboratoreImmagine {
 };
 
 // classe per il Bianco e nero
-class ImmagineBN : public ElaboratoreImmagine {
+/*class ImmagineBN : public ElaboratoreImmagine {
  public:
   ImmagineBN(std::string source, std::string destination);
   sf::Image trasforma(const sf::Image& input) override;
-};
+};*/
 
 // classe per lo Zoom dell'immagine
 class ImmagineZoomed : public ElaboratoreImmagine {
