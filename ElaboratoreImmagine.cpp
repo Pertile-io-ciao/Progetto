@@ -26,7 +26,7 @@ void ElaboratoreImmagine::elabora() {
      * e che sia png
      */
     if (entry.is_regular_file()) {
-      auto path = entry.path();
+      auto path = entry.path(); //path=percorso
       std::string ext = path.extension().string();
       if (ext == ".png") {
         sf::Image img;
@@ -39,7 +39,7 @@ void ElaboratoreImmagine::elabora() {
         sf::Image elaborata = trasforma(img);
 
         // salvo risultato in destinationFolder con lo stesso nome
-        std::string outPath =
+        std::string outPath = //outpath=percorso per l'output
             this->destinationFolder + "/" + path.filename().string();
         elaborata.saveToFile(outPath);
       }
