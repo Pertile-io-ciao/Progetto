@@ -1,5 +1,5 @@
-#ifndef ELABORATOREIMMAGINE_HPP
-#define ELABORATOREIMMAGINE_HPP
+#ifndef IMAGE_PROCESSOR_HPP
+#define IMAGE_PROCESSOR_HPP
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -11,19 +11,19 @@ class ElaboratoreImmagine {
   std::string destinationFolder;
 
   ElaboratoreImmagine(std::string source, std::string destination);
-  void elabora();
+  void process();
 
   /**
    * Metodo specifico di trasformazione virtuale
    */
-  virtual sf::Image trasforma(const sf::Image& input) = 0;
+  virtual sf::Image trasform(const sf::Image& input) = 0;
 };
 
 // classe per il ridimensionamento dell'immagine
 class ImmagineResized : public ElaboratoreImmagine {
  public:
   ImmagineResized(std::string source, std::string destination);
-  sf::Image trasforma(const sf::Image& input) override;
+  sf::Image trasform(const sf::Image& input) override;
 };
 
 // classe per il Bianco e nero
@@ -37,7 +37,7 @@ class ImmagineResized : public ElaboratoreImmagine {
 class ImmagineZoomed : public ElaboratoreImmagine {
  public:
   ImmagineZoomed(std::string source, std::string destination);
-  sf::Image trasforma(const sf::Image& input) override;
+  sf::Image trasform(const sf::Image& input) override;
 };
 
 #endif
