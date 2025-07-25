@@ -1,4 +1,4 @@
-#include "dati.hpp"
+#include "dates.hpp"
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -10,45 +10,45 @@ int l= 64;
 //zoom viene passato come parametro
 //int n= 5;
 
-std::vector<sf::Color> immagineVettore(const sf::Image& image) {
+std::vector<sf::Color> vector_from_image(const sf::Image& image) {
     int width = image.getSize().x;
     int height = image.getSize().y;
 
-   std::vector<sf::Color> risultato;
-    risultato.reserve(width * height);
+   std::vector<sf::Color> result;
+    result.reserve(width * height);
 
     for (int y = 0; y < height; ++y) {         
         for (int x = 0; x < width; ++x) {      
-            risultato.push_back(image.getPixel(x, y));
+            result.push_back(image.getPixel(x, y));
         }
     }
 
-    return risultato;
+    return result;
 }
  //mi trovo un vettore composto da tutti sf::Color che sono praticamente i pixel
 
 
-std::vector<int> bianconero(const std::vector<sf::Color>& v) {
-    std::vector<int> risultato;
+std::vector<int> blacknwhite(const std::vector<sf::Color>& v) {
+    std::vector<int> result;
 
     for (std::size_t i = 0; i < v.size(); ++i) {
         const sf::Color& c = v[i];
 
         // Ignora completamente i pixel trasparenti (opzionale)
         if (c.a < 10) {
-            risultato.push_back(-1);  // considera come bianco
+            result.push_back(-1);  // considera come bianco
             continue;
         }
 
         // Calcola la luminanza percepita
         double luminanza = (0.299 * c.r + 0.587 * c.g + 0.114 * c.b);
         int h = (luminanza < 127) ? 1 : -1;
-        risultato.push_back(h);
+        result.push_back(h);
     }
 
-    return risultato;
+    return result;
 }
-std::vector<int> interpolazioneBilineare(const std::vector<int>& input, int inW, int inH) {
+std::vector<int> bilinear_interpolation(const std::vector<int>& input, int inW, int inH) {
     std::vector<int> output(l * l);
 
     for (int y = 0; y < l; ++y) {
@@ -95,14 +95,14 @@ std::vector<int> zoom(const std::vector<int>& v, int n) {
 
     for (int y = 0; y < l; ++y) {
         for (int x = 0; x < l; ++x) {
-            int valore = v[y * l + x];
+            int value = v[y * l + x];
 
             // Scrivi valore in blocco n x n
             for (int dy = 0; dy < n; ++dy) {
                 for (int dx = 0; dx < n; ++dx) {
                     int newX = x * n + dx;
                     int newY = y * n + dy;
-                    result[newY * newL + newX] = valore;
+                    result[newY * newL + newX] = value;
                 }
             }
         }
@@ -113,23 +113,23 @@ std::vector<int> zoom(const std::vector<int>& v, int n) {
 
 
 //in input ho vettore di pixel bn di immagine quadrata quindi il lato è radice di size
-sf::Image vettoreInImmagine(const std::vector<int>& dati) {
+sf::Image image_from_vector(const std::vector<int>& dates) {
     sf::Image image;
-    int lato = (int)sqrt(dati.size());
+    int lato = (int)sqrt(dates.size());
     image.create(lato, lato);
 
     for (int y = 0; y < lato; ++y) {
         for (int x = 0; x < lato; ++x) {
-            int valore = dati[y * lato + x];
-            sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
-            image.setPixel(x, y, colore);
+            int value = dates[y * lato + x];
+            sf::Color color = (value == 1) ? sf::Color::Black : sf::Color::White;
+            image.setPixel(x, y, color);
         }
     }
 
     return image;
 }
 
-sf::Image vettoreInImmagine(const std::vector<int>& dati, const sf::Image& image) {
+sf::Image image_from_vector(const std::vector<int>& dates, const sf::Image& image) {
     int width = image.getSize().x;
     int height = image.getSize().y;
 
@@ -138,9 +138,9 @@ sf::Image vettoreInImmagine(const std::vector<int>& dati, const sf::Image& image
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            int valore = dati[y * width + x];
-            sf::Color colore = (valore == 1) ? sf::Color::Black : sf::Color::White;
-            imagebw.setPixel(x, y, colore);
+            int value = dates[y * width + x];
+            sf::Color color = (value == 1) ? sf::Color::Black : sf::Color::White;
+            imagebw.setPixel(x, y, color);
         }
     }
 

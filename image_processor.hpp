@@ -5,12 +5,12 @@
 #include <string>
 #include <vector>
 
-class ElaboratoreImmagine {
+class ImageProcessor {
  public:
   std::string sourceFolder;
   std::string destinationFolder;
 
-  ElaboratoreImmagine(std::string source, std::string destination);
+  ImageProcessor(std::string source, std::string destination);
   void process();
 
   /**
@@ -20,7 +20,7 @@ class ElaboratoreImmagine {
 };
 
 // classe per il ridimensionamento dell'immagine
-class ImmagineResized : public ElaboratoreImmagine {
+class ImmagineResized : public ImageProcessor {
  public:
   ImmagineResized(std::string source, std::string destination);
   sf::Image trasform(const sf::Image& input) override;
@@ -34,7 +34,7 @@ class ImmagineResized : public ElaboratoreImmagine {
 };*/
 
 // classe per lo Zoom dell'immagine
-class ImmagineZoomed : public ElaboratoreImmagine {
+class ImmagineZoomed : public ImageProcessor {
  public:
   ImmagineZoomed(std::string source, std::string destination);
   sf::Image trasform(const sf::Image& input) override;

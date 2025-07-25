@@ -2,17 +2,17 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include "dati.hpp"
+#include "dates.hpp"
 
 // costruttore di ElaboratoreImmagine (image_processor)
-ElaboratoreImmagine::ElaboratoreImmagine(std::string source,
+ImageProcessor::ImageProcessor(std::string source,
                                          std::string destination) {
   this->sourceFolder = source;
   this->destinationFolder = destination;
 }
 
 //funzione che elabora tutte le immagini che sono nella cartella di origine
-void ElaboratoreImmagine::process() {
+void ImageProcessor::process() {
   if (!std::filesystem::exists(this->destinationFolder)) {
     std::filesystem::create_directories(this->destinationFolder);
   }
@@ -36,29 +36,29 @@ void ElaboratoreImmagine::process() {
         /**
          * Chiamo il metodo specifico di trasformazine
          */
-        sf::Image elaborata = trasform(img);
+        sf::Image elaborated = trasform(img);
 
         // salvo risultato in destinationFolder con lo stesso nome
         std::string outPath = //outpath=percorso per l'output
             this->destinationFolder + "/" + path.filename().string();
-        elaborata.saveToFile(outPath);
+        elaborated.saveToFile(outPath);
       }
     }
   }
 }
 
 ImmagineResized::ImmagineResized(std::string source, std::string destination)
-    : ElaboratoreImmagine(source, destination) {}
+    : ImageProcessor(source, destination) {}
 
 sf::Image ImmagineResized::trasform(const sf::Image& input) { 
 
-    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
-    std::vector<int> vettore = bianconero(colori);      
+    std::vector<sf::Color> colors = vector_from_image(input);  // vettore di sf::Color
+    std::vector<int> vector1 = blacknwhite(colors);      
     
     int width = input.getSize().x;
     int height = input.getSize().y;      // -1 / 1
-    std::vector<int> v_interpolato = interpolazioneBilineare(vettore, width, height);
-    sf::Image image = vettoreInImmagine(v_interpolato);
+    std::vector<int> v_interpolated = bilinear_interpolation(vector1, width, height);
+    sf::Image image = image_from_vector(v_interpolated);
     return image;
 }
 
@@ -75,13 +75,13 @@ sf::Image ImmagineBN::trasforma(const sf::Image& input) {
 }*/
 
 ImmagineZoomed::ImmagineZoomed(std::string source, std::string destination)
-    : ElaboratoreImmagine(source, destination) {}
+    : ImageProcessor(source, destination) {}
 
 sf::Image ImmagineZoomed::trasform(const sf::Image& input) {  
-    std::vector<sf::Color> colori = immagineVettore(input);  // vettore di sf::Color
-    std::vector<int> vettore = bianconero(colori);            // -1 / 1
-    std::vector<int> vettore2 = zoom(vettore, 4);            // -1 / 1
-    sf::Image image= vettoreInImmagine(vettore2);
+    std::vector<sf::Color> colori = vector_from_image(input);  // vettore di sf::Color
+    std::vector<int> vector1 = blacknwhite(colori);            // -1 / 1
+    std::vector<int> vector2 = zoom(vector1, 4);            // -1 / 1
+    sf::Image image= image_from_vector(vector2);
     return image;
 }
 
